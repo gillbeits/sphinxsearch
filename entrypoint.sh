@@ -9,8 +9,15 @@ if [ "$1" = 'sphinx' ]; then
 	echo "Start Cron Daemon"
 	/usr/sbin/crond -n -x misc 2>&1 | /time_to_log.sh >> /var/log/sphinx/cron &
 	if [ "$2" = 'indexer' ]; then
-		echo "Start Sphinxsearch Indexer for --all indexes"
-		su - sphinx -c '/usr/bin/indexer --all'
+		shift
+		shift
+		indexes=$@
+		if [ -z "$1" ]; then
+			indexes='--all'
+		fi
+
+		echo "Start Sphinxsearch Indexer for \"$indexes\" indexes"
+		su - sphinx -c "/usr/bin/indexer $indexes"
 	fi
 
 	echo "Starting Sphinx"
@@ -21,7 +28,14 @@ if [ "$1" = 'sphinx' ]; then
 
 	echo "Stopping Sphinx"
 	service searchd stop
-
+elif [ "$1" = 'indexer' ]; then
+	shift
+	indexes=$@
+	if [ -z "$1" ]; then
+		indexes='--all'
+	fi
+	echo "Start Sphinxsearch Indexer for \"$indexes\" indexes"
+	su - sphinx -c "/usr/bin/indexer $indexes"
 elif [ "$1" = 'log' ]; then
 	tail -f /var/log/sphinx/*
 fi
