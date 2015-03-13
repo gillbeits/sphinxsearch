@@ -1,6 +1,6 @@
 #Supported tags and respective ```Dockerfile``` links
 
-- [```2.2.7`` `(Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/2.2.7/Dockerfile)
+- [```2.2.7``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/2.2.7/Dockerfile)
 - [```2.2.8```, ```latest``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/master/Dockerfile)
 
 #How to use this image
