@@ -7,7 +7,7 @@ RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-
 RUN yum install -y -q http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm
 
 # install utils
-RUN yum install -y wget tar cronie postgresql-libs initscripts unixODBC
+RUN yum install -y wget vim tar cronie postgresql-libs initscripts unixODBC
 RUN yum install -y Percona-Server-shared-56
 
 #install sphinxsearch 

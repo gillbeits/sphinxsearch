@@ -36,9 +36,11 @@ elif [ "$1" = 'indexer' ]; then
 	fi
 	echo "Start Sphinxsearch Indexer for \"$indexes\" indexes"
 	su - sphinx -c "/usr/bin/indexer $indexes"
+elif [ "$1" = 'editconfig' ]; then
+	vim /etc/sphinx/sphinx.conf
 elif [ "$1" = 'log' ]; then
 	tail -f /var/log/sphinx/*
+else
+	exec "$@"
 fi
-
-exec "$@"
 
