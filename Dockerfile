@@ -16,9 +16,7 @@ RUN rpm -Uhv http://sphinxsearch.com/files/sphinx-2.2.7-1.rhel7.x86_64.rpm
 # expose ports
 EXPOSE 9306 9312
 
-ADD entrypoint.sh /
 ADD time_to_log.sh /
-RUN chmod +x /entrypoint.sh
 RUN chmod +x /time_to_log.sh
 
 RUN mkdir -p /var/lock/subsys
@@ -29,4 +27,9 @@ RUN rm -rf /var/spool/cron/sphinx
 VOLUME ["/etc/sphinx", "/var/spool/cron", "/var/lib/sphinx", "/var/log/sphinx"]
  
 ENTRYPOINT ["/entrypoint.sh"]
+
+ADD entrypoint.sh /
+RUN chmod +x /entrypoint.sh
+
+CMD ["sphinx", "indexer"]
 
