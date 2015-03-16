@@ -7,7 +7,7 @@ if [ "$1" = 'sphinx' ]; then
 
 	chown -R sphinx:sphinx /var/lib/sphinx /var/log/sphinx
 	echo "Start Cron Daemon"
-	/usr/sbin/crond -n -x misc 2>&1 >> /var/log/sphinx/cron &
+	/usr/sbin/crond -n -x misc 2>&1 | awk '{ print strftime("%a %b %d %T %Y"), $0; fflush() }' >> /var/log/sphinx/cron &
 	if [ "$2" = 'indexer' ]; then
 		shift
 		shift
