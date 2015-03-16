@@ -35,7 +35,7 @@ elif [ "$1" = 'indexer' ]; then
 		indexes='--all'
 	fi
 	echo "Start Sphinxsearch Indexer for \"$indexes\" indexes"
-	su - sphinx -c "/usr/bin/indexer $indexes"
+	su - sphinx -c "/usr/bin/indexer --rotate $indexes"
 elif [ "$1" = 'crontab' ]; then
 	crontab -e -u sphinx
 elif [ "$1" = 'editconfig' ]; then
