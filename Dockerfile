@@ -11,7 +11,7 @@ RUN yum install -y wget vim tar cronie postgresql-libs initscripts unixODBC
 RUN yum install -y Percona-Server-shared-56
 
 #install sphinxsearch 
-RUN rpm -Uhv http://sphinxsearch.com/files/sphinx-2.2.8-1.rhel7.x86_64.rpm 
+RUN rpm -Uhv http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.src.rpm
 
 # expose ports
 EXPOSE 9306 9312
@@ -29,4 +29,3 @@ ADD entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
 CMD ["sphinx", "indexer"]
-
