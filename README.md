@@ -2,6 +2,7 @@
 
 - [```2.2.7``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/2.2.7/Dockerfile)
 - [```2.2.8``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/2.2.8/Dockerfile)
+- [```2.2.9``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/2.2.9/Dockerfile)
 - [```2.2.10```, ```latest``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/master/Dockerfile)
 
 #How to use this image
