@@ -8,15 +8,13 @@ RUN yum install -y -q http://www.percona.com/downloads/percona-release/redhat/0.
 
 # install utils
 RUN yum install -y wget vim tar cronie postgresql-libs initscripts unixODBC
-RUN yum install -y Percona-Server-shared-56
+RUN yum install -y Percona-Server-shared-56 Percona-Server-client-56
 
 #install sphinxsearch 
-RUN rpm -Uhv http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.src.rpm
+RUN rpm -Uhv http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.x86_64.rpm
 
 # expose ports
 EXPOSE 9306 9312
-
-RUN mkdir -p /var/lock/subsys
 
 RUN rm -rf /etc/sphinx
 RUN rm -rf /var/spool/cron/sphinx

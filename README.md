@@ -5,7 +5,7 @@
 - [```2.2.10```, ```latest``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/master/Dockerfile)
 
 #How to use this image
-## start adata container instance
+## start a data container instance
 
 	docker run --name sphinx-files -v /etc/sphinx -v /var/spool/cron -v /var/lib/sphinx -v /var/log/sphinx busybox true
 
@@ -15,12 +15,16 @@
 
 ## run sphinx indexer (by default run indexer for all indexes)
 
-	docker run --rm -ti --volumes-from sphinx-files --link postgres:postgres gillbeits/sphinxsearch indexer
+	docker run --rm -ti --volumes-from sphinx-files --link postgres:postgres gillbeits/sphinxsearch indexer [args]
 
 ## start a sphinx instance and connect it with ```sphinx-files``` data container and postgres/mysql container
 
-	docker run --name sphinx -p 9306:9306 -p 9312:9312 --volumes-from sphinx-files --link postgres:postgres gillbeits/sphinxsearch sphinx
+	docker run -td --name sphinx -p 9306:9306 -p 9312:9312 --volumes-from sphinx-files --link postgres gillbeits/sphinxsearch sphinx
 
 ## for change crontab in ```sphinx``` container
 
 	docker run --rm -ti --volumes-from sphinx-files gillbeits/sphinxsearch crontab
+	
+## for SphinxQL usage ```sphinx``` container
+
+	docker run --rm -ti --link sphinx gillbeits/sphinxsearch console
