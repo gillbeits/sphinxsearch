@@ -4,6 +4,7 @@
 - [```2.2.8``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/2.2.8/Dockerfile)
 - [```2.2.9``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/2.2.9/Dockerfile)
 - [```2.2.10```, ```latest``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/master/Dockerfile)
+- [```dev``` (Dockerfile)](https://github.com/gillbeits/sphinxsearch/blob/dev/Dockerfile)
 
 #How to use this image
 ## start a data container instance
