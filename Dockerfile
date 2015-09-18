@@ -1,17 +1,14 @@
-FROM centos
+FROM centos:7
 
 MAINTAINER Ivan Koretskiy, gillbeits@gmail.com
 
 #add EPEL Repository
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-RUN yum install -y -q http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm
-
-# install utils
-RUN yum install -y wget vim tar cronie postgresql-libs initscripts unixODBC
-RUN yum install -y Percona-Server-shared-56 Percona-Server-client-56
-
-#install sphinxsearch 
-RUN rpm -Uhv http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.x86_64.rpm
+RUN rpm --quiet -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum --disablerepo=extras --disablerepo=updates install -y -q http://www.percona.com/downloads/percona-release/redhat/0.1-3/percona-release-0.1-3.noarch.rpm && \
+    yum --disablerepo=extras --disablerepo=updates install -y -q wget vim tar cronie postgresql-libs initscripts unixODBC && \
+    yum --disablerepo=extras --disablerepo=updates install -y -q Percona-Server-shared-56 Percona-Server-client-56 && \
+    rpm --quiet -Uhv http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.x86_64.rpm && \
+    yum clean -y -q all
 
 # expose ports
 EXPOSE 9306 9312
