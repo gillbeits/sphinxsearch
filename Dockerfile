@@ -10,8 +10,19 @@ RUN yum install -y -q http://www.percona.com/downloads/percona-release/redhat/0.
 RUN yum install -y wget vim tar cronie postgresql-libs initscripts unixODBC
 RUN yum install -y Percona-Server-shared-56 Percona-Server-client-56
 
+# install make packages
+RUN yum install -y gcc-c++ Percona-Server-devel-56 openssl-devel postgresql-devel unixODBC-devel make automake
+
 #install sphinxsearch 
-RUN rpm -Uhv http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.x86_64.rpm
+RUN cd /tmp && wget https://github.com/sphinxsearch/sphinx/archive/master.tar.gz && tar xzf master.tar.gz
+RUN cd /tmp/sphinx-master && ./configure --prefix=/usr --with-pgsql && make install
+RUN useradd -d /var/lib/sphinx -s /bin/bash sphinx
+RUN mkdir -p /var/run/sphinx
+
+# uninstall make packages
+RUN yum remove -y gcc-c++ Percona-Server-devel-56 openssl-devel postgresql-devel unixODBC-devel make automake
+RUN yum -y autoremove
+RUN rm -rf /tmp/sphinx* master.tar.gz
 
 # expose ports
 EXPOSE 9306 9312
