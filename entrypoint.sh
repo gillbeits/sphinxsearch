@@ -36,7 +36,8 @@ if [ "$1" = 'sphinx' ]; then
 		fi
 
 		echo "Start Sphinxsearch Indexer for \"$indexes\" indexes"
-		su - sphinx -c "/usr/bin/indexer $indexes"
+		su - sphinx -c "/usr/bin/indexer $indexes" > /var/log/sphinx/indexer.log
+		echo "Finish Sphinxsearch Indexer for \"$indexes\" indexes"
 		cat indexes > /tmp/sphinx.index
 	fi
 
