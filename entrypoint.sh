@@ -2,6 +2,25 @@
 
 set -e
 
+if [ ${RSYNC} = 'YES' ]; then
+	cat <<EOF > /etc/rsyncd.conf
+# Rsync config for SphinxSearch Docker Container
+uid = ${RSYNC_OWNER}
+gid = ${RSYNC_GROUP}
+use chroot = yes
+pid file = /var/run/rsyncd.pid
+log file = /dev/stdout
+
+[sphinx]
+hosts deny = *
+hosts allow = ${RSYNC_ALLOW}
+read only = yes
+path = ${RSYNC_VOLUME}
+comment = docker sphinx data directory
+EOF
+	/usr/bin/rsync --daemon --config /etc/rsyncd.conf
+fi
+
 if [ "$1" = 'sphinx' ]; then
 	trap "echo TRAPed signal" HUP INT QUIT KILL TERM
 
