@@ -14,7 +14,7 @@ log file = /dev/stdout
 [sphinx]
 hosts deny = *
 hosts allow = ${RSYNC_ALLOW}
-read only = yes
+read only = ${RSYNC_READONLY}
 path = ${RSYNC_VOLUME}
 comment = docker sphinx data directory
 EOF
@@ -27,7 +27,7 @@ if [ "$1" = 'sphinx' ]; then
 	chown -R sphinx:sphinx /var/lib/sphinx /var/log/sphinx
 	echo "Start Cron Daemon"
 	/usr/sbin/crond -n -x misc 2>&1 | awk '{ print strftime("%a %b %d %T %Y"), $0; fflush() }' >> /var/log/sphinx/cron &
-	if [ "$2" = 'indexer' ]; then
+	if [ "$2" = 'indexer' ] && [ ! -e /tmp/sphinx.index ]; then
 		shift
 		shift
 		indexes=$@
@@ -37,6 +37,7 @@ if [ "$1" = 'sphinx' ]; then
 
 		echo "Start Sphinxsearch Indexer for \"$indexes\" indexes"
 		su - sphinx -c "/usr/bin/indexer $indexes"
+		cat indexes > /tmp/sphinx.index
 	fi
 
 	echo "Starting Sphinx"
