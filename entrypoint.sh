@@ -2,6 +2,9 @@
 
 set -e
 
+DOCKER_HOST=`/sbin/ip route|awk '/default/ { print $3 }'`
+echo "${DOCKER_HOST}    ${HOST_IP}" >> /etc/hosts
+
 if [ ${RSYNC} = 'YES' ]; then
 	cat <<EOF > /etc/rsyncd.conf
 # Rsync config for SphinxSearch Docker Container
